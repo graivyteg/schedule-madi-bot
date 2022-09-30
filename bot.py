@@ -5,6 +5,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from bot.config import load_config
 from bot.handlers.hello import register_hello
+from bot.handlers.profile import register_profile
+from bot.handlers.sign_in import register_sign_in
 from bot.middlewares.users_database import UsersDatabaseMiddleware
 from databases.users_dbm import UsersDBM
 
@@ -21,6 +23,8 @@ def register_all_filters(dp: Dispatcher):
 
 def register_all_handlers(dp: Dispatcher):
     register_hello(dp)
+    register_sign_in(dp)
+    register_profile(dp)
 
 
 async def main():

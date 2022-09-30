@@ -5,6 +5,5 @@ class SignInStates(StatesGroup):
     waiting_name_reply = State()
     waiting_name = State()
     waiting_group = State()
-    authorized = State()
 
 

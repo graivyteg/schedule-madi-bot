@@ -6,7 +6,7 @@ from databases.models.user import User
 
 
 class AuthorizedFilter(BoundFilter):
-    key='authorized'
+    key = 'authorized'
 
     def __init__(self, authorized=True):
         self.authorized = authorized

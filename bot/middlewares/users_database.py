@@ -12,6 +12,11 @@ class UsersDatabaseMiddleware(BaseMiddleware):
         super().__init__()
         self.dbm = users_dbm
 
+    async def on_pre_process_callback_query(self, query: types.CallbackQuery, data: dict):
+        user = self.dbm.get_or_add_user(query.from_user.id)
+        data['user'] = user
+        data['old_user'] = copy(user)
+
     async def on_pre_process_message(self, message: types.Message, data: dict):
         user = self.dbm.get_or_add_user(message.from_user.id)
         data['user'] = user
