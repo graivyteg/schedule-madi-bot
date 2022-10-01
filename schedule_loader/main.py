@@ -10,13 +10,17 @@ from schedule_loader.data_containers.schedule import Schedule
 from schedule_loader.data_containers.workday import WorkDay
 from schedule_loader.group_id_loader import GroupIdLoader
 from schedule_loader.loader import ScheduleLoader
+from schedule_loader.schedule_saver.saver import ScheduleDBM
 
+
+async def f(time):
+    await asyncio.sleep(time)
+    print(time)
 
 async def main():
-    day = int(input())
-    loader = ScheduleLoader('1бАСУ1')
-    schedule = await loader.load_schedule()
-    print(str(schedule.get_schedule(day)))
-
+    schedules = await ScheduleLoader.load_all_schedules(100)
+    print('RESULT:', schedules)
+    saver = ScheduleDBM()
+    saver.update_schedules(schedules)
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())

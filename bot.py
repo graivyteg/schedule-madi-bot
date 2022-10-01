@@ -9,6 +9,7 @@ from bot.handlers.profile import register_profile
 from bot.handlers.sign_in import register_sign_in
 from bot.middlewares.users_database import UsersDatabaseMiddleware
 from databases.users_dbm import UsersDBM
+from schedule_loader.schedule_saver.saver import ScheduleDBM
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +40,13 @@ async def main():
     storage = MemoryStorage()
     dp = Dispatcher(bot=bot, storage=storage, loop=loop)
     dp.bot['config'] = config
+    schedule_dbm = ScheduleDBM()
+
+    if config.database.update_schedules:
+        print('LOADING SCHEDULES...')
+        await schedule_dbm.load_and_save_schedules()
+
+    print('BOT IS READY TO START')
 
     register_all_middlewares(dp)
     register_all_filters(dp)

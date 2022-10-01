@@ -15,3 +15,8 @@ class Schedule:
         if day >= 6:
             return WorkDay([])
         return copy(self.workdays[day])
+
+    def get_workday(self, weekday=0) -> WorkDay:
+        if weekday >= 6:
+            return WorkDay([])
+        return self.workdays[weekday]

@@ -12,3 +12,6 @@ class WorkDay:
         for lesson in self.lessons:
             result += str(lesson) + '\n'
         return result
+
+    def add_lesson(self, lesson: Lesson):
+        self.lessons.append(lesson)
