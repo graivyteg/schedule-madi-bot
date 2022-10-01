@@ -40,7 +40,12 @@ async def main():
     storage = MemoryStorage()
     dp = Dispatcher(bot=bot, storage=storage, loop=loop)
     dp.bot['config'] = config
-    schedule_dbm = ScheduleDBM()
+
+    users_dbm = UsersDBM('users')
+    schedule_dbm = ScheduleDBM('schedules')
+
+    dp.bot['users_dbm'] = users_dbm
+    dp.bot['schedule_dbm'] = schedule_dbm
 
     if config.database.update_schedules:
         print('LOADING SCHEDULES...')

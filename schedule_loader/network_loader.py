@@ -12,13 +12,13 @@ from schedule_loader.group_id_loader import GroupIdLoader
 from schedule_loader.request_data.schedule_request_data import *
 
 
-class ScheduleLoader:
+class NetworkScheduleLoader:
     def __init__(self, group: str):
         self.group = group
 
     @classmethod
     async def load_schedule_by_group(cls, group) -> Schedule:
-        schedule = await ScheduleLoader(group).load_schedule()
+        schedule = await NetworkScheduleLoader(group).load_schedule()
         return schedule
 
     async def load_schedule(self) -> Schedule:
@@ -76,7 +76,7 @@ class ScheduleLoader:
             slice = await cls.__load_part_schedules(list(groups.keys()), i, tasks_per_time)
             for key in slice.keys():
                 result[key] = slice[key]
-        #for group in groups.keys():
+        # for group in groups.keys():
         #    result[group] = await ScheduleLoader.load_schedule_by_group(group)
         return result
 
@@ -92,7 +92,7 @@ class ScheduleLoader:
         result = {}
         i = 0
         for i in range(len(keys)):
-            tasks.append(asyncio.create_task(ScheduleLoader.load_schedule_by_group(keys[i])))
+            tasks.append(asyncio.create_task(NetworkScheduleLoader.load_schedule_by_group(keys[i])))
         await asyncio.gather(*tasks)
         for i in range(len(keys)):
             result[keys[i]] = tasks[i].result()
