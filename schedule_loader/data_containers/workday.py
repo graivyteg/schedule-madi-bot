@@ -8,9 +8,11 @@ class WorkDay:
     lessons: List[Lesson]
 
     def __str__(self):
-        result = 'УЧЕБНЫЙ ДЕНЬ: \n'
+        if len(self.lessons) == 0:
+            return '<b>Кажется, это выходной!</b>'
+        result = '<b>УЧЕБНЫЙ ДЕНЬ:</b> \n'
         for lesson in self.lessons:
-            result += str(lesson) + '\n'
+            result += str(lesson) + '\n\n'
         return result
 
     def add_lesson(self, lesson: Lesson):

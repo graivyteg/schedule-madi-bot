@@ -11,10 +11,11 @@ class Lesson:
     teacher: str
 
     def __str__(self):
-        result = f'{self.time} | {self.subject} | {self.type} | {self.week}'
+        result = f'[{self.time}] <i>{self.subject}</i> ({self.week})\n' +\
+                 f'{self.type}'
         if len(self.classroom) > 0:
-            result += f' | {self.classroom}'
+            result += f'Аудитория {self.classroom}\n'
         if len(self.teacher) > 0:
-            result += f' | {self.teacher}'
+            result += f'Преподаватель {self.teacher}\n'
         return result
 
