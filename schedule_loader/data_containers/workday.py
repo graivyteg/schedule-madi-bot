@@ -11,8 +11,10 @@ class WorkDay:
         if len(self.lessons) == 0:
             return '<b>Кажется, это выходной!</b>'
         result = '<b>УЧЕБНЫЙ ДЕНЬ:</b> \n'
-        for lesson in self.lessons:
-            result += str(lesson) + '\n\n'
+
+        for i in range(len(self.lessons)):
+            result += f'<b>Пара {i + 1}</b>\n'
+            result += str(self.lessons[i]) + '\n\n'
         return result
 
     def add_lesson(self, lesson: Lesson):

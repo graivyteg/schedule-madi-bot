@@ -3,8 +3,7 @@ from copy import copy
 from aiogram import types
 from aiogram.dispatcher.middlewares import BaseMiddleware
 
-from databases.models.user import User
-from databases.users_dbm import UsersDBM
+from bot.misc.users_dbm import UsersDBM
 
 
 class UsersDatabaseMiddleware(BaseMiddleware):
