@@ -1,7 +1,7 @@
 import aiohttp
 from bs4 import BeautifulSoup, ResultSet
 
-from schedule_loader.request_data.group_id_request_data import *
+from madi_api.request_data.group_id_request_data import *
 
 
 class GroupIdLoader:

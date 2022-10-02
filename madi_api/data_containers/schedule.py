@@ -1,7 +1,7 @@
 from copy import copy
 from dataclasses import dataclass
 from typing import List
-from schedule_loader.data_containers.workday import WorkDay
+from madi_api.data_containers.workday import WorkDay
 
 
 @dataclass
@@ -20,3 +20,5 @@ class Schedule:
         if weekday >= 6:
             return WorkDay([])
         return self.workdays[weekday]
+
+

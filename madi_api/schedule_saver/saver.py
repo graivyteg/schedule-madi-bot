@@ -2,10 +2,10 @@ from copy import copy
 from typing import List
 
 from databases.database_manager import DatabaseManager
-from schedule_loader.data_containers.lesson import Lesson
-from schedule_loader.data_containers.schedule import Schedule
-from schedule_loader.data_containers.workday import WorkDay
-from schedule_loader.network_loader import NetworkScheduleLoader
+from madi_api.data_containers.lesson import Lesson
+from madi_api.data_containers.schedule import Schedule
+from madi_api.data_containers.workday import WorkDay
+from madi_api.network_loader import NetworkScheduleLoader
 
 
 class ScheduleDBM(DatabaseManager):

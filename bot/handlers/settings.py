@@ -10,7 +10,7 @@ from databases.models.user import User
 
 
 async def open_settings(message: Message, user: User, texts):
-    await message.answer(texts['settings_menu'], reply_markup=get_settings_markup())
+    await message.answer(texts['settings_menu'], reply_markup=get_settings_markup(texts))
 
 
 async def open_settings_query(query: CallbackQuery, user: User, texts):

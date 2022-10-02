@@ -5,11 +5,11 @@ import aiohttp
 from bs4 import BeautifulSoup
 from typing import Dict, List
 
-from schedule_loader.data_containers.lesson import Lesson
-from schedule_loader.data_containers.schedule import Schedule
-from schedule_loader.data_containers.workday import WorkDay
-from schedule_loader.group_id_loader import GroupIdLoader
-from schedule_loader.request_data.schedule_request_data import *
+from madi_api.data_containers.lesson import Lesson
+from madi_api.data_containers.schedule import Schedule
+from madi_api.data_containers.workday import WorkDay
+from madi_api.group_id_loader import GroupIdLoader
+from madi_api.request_data.schedule_request_data import *
 
 
 class NetworkScheduleLoader:

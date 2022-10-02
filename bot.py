@@ -16,7 +16,7 @@ from bot.handlers.to_menu import register_to_menu
 from bot.middlewares.texts import TextsMiddleware
 from bot.middlewares.users_database import UsersDatabaseMiddleware
 from bot.misc.users_dbm import UsersDBM
-from schedule_loader.schedule_saver.saver import ScheduleDBM
+from madi_api.schedule_saver.saver import ScheduleDBM
 
 logger = logging.getLogger(__name__)
 
