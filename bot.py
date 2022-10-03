@@ -16,7 +16,6 @@ from bot.handlers.to_menu import register_to_menu
 from bot.middlewares.texts import TextsMiddleware
 from bot.middlewares.users_database import UsersDatabaseMiddleware
 from bot.misc.users_dbm import UsersDBM
-from madi_api.schedule_saver.saver import ScheduleDBM
 
 logger = logging.getLogger(__name__)
 
@@ -54,18 +53,12 @@ async def main():
     dp.bot['config'] = config
 
     users_dbm = UsersDBM('users')
-    schedule_dbm = ScheduleDBM('schedules')
 
     dp.bot['users_dbm'] = users_dbm
-    dp.bot['schedule_dbm'] = schedule_dbm
 
     with open('ru_RU.json', 'r') as f:
         json_texts = json.load(f)
         dp.bot['texts'] = json_texts
-
-    if config.database.update_schedules:
-        print('LOADING SCHEDULES...')
-        await schedule_dbm.load_and_save_schedules()
 
     print('BOT IS READY TO START')
 

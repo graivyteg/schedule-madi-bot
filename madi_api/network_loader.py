@@ -11,6 +11,14 @@ from madi_api.data_containers.workday import WorkDay
 from madi_api.group_id_loader import GroupIdLoader
 from madi_api.request_data.schedule_request_data import *
 
+weekdays = {
+    'Понедельник': 0,
+    'Вторник': 1,
+    'Среда': 2,
+    'Четверг': 3,
+    'Пятница': 4,
+    'Суббота': 5
+}
 
 class NetworkScheduleLoader:
     def __init__(self, group: str):
@@ -22,26 +30,31 @@ class NetworkScheduleLoader:
         return schedule
 
     async def load_schedule(self) -> Schedule:
-        try:
-            result = await self.get_html()
-        except:
-            print('Caught error, restarting...')
-            await asyncio.sleep(3)
-            return await self.load_schedule()
+        result = None
+        while result is None:
+            try:
+                result = await self.get_html()
+            except:
+                print('Caught error, restarting...')
+                await asyncio.sleep(3)
+
         soup = BeautifulSoup(result, features='html.parser')
         trs = soup.find_all('tr')
+        #if len(trs) == 0:
+        #    await asyncio.sleep(1)
+        #    return await self.load_schedule()
         started = False
         lessons = []
-        workdays = []
+        workdays = {}
 
+        weekday = None
         for i in range(len(trs)):
             tds = [td.text for td in trs[i].find_all('td')]
             if len(tds) < 6 and started:
                 workday = WorkDay(copy(lessons))
-                workdays.append(workday)
+                workdays[weekday] = workday
                 lessons.clear()
-                continue
-            if len(tds) == 6 and not tds[0] == 'Время занятий':
+            elif len(tds) == 6 and not tds[0] == 'Время занятий':
                 started = True
                 lesson = Lesson(
                     time=tds[0],
@@ -52,6 +65,12 @@ class NetworkScheduleLoader:
                     teacher=tds[5]
                 )
                 lessons.append(lesson)
+            th = trs[i].find('th')
+            if th is not None and th.text == 'Полнодневные занятия':
+                continue
+            if th is not None and th.text in weekdays.keys():
+                weekday = weekdays[th.text]
+        print(self.group, workdays.keys(), len(trs))
         return Schedule(workdays)
 
     async def get_html(self) -> str:
@@ -82,7 +101,7 @@ class NetworkScheduleLoader:
 
     @classmethod
     async def __load_part_schedules(cls, groups: List[str], start, tasks_amount) -> Dict[str, Schedule]:
-        await asyncio.sleep(2)
+        #await asyncio.sleep(2)
         print(f'Loading... {start}/{len(groups)}')
         end = start + tasks_amount
         if end > len(groups):

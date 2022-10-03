@@ -24,14 +24,14 @@ async def send_menu(bot: Bot, user: User):
 
 
 async def send_schedule(query: CallbackQuery, user: User, texts):
-    schedule = query.bot['schedule_dbm'].get_schedule_by_group(user.group)
+    schedule = await NetworkScheduleLoader(user.group).load_schedule()
     for i in range(0, 6):
         await query.message.answer(str(schedule.get_schedule_at_day(i)),
                                    reply_markup=get_to_menu_markup(texts))
 
 
 async def send_schedule_today(query: CallbackQuery, user: User, texts):
-    schedule = query.bot['schedule_dbm'].get_schedule_by_group(user.group)
+    schedule = await NetworkScheduleLoader(user.group).load_schedule()
     weekday = datetime.today().weekday()
     workday = schedule.get_schedule_at_day(weekday)
     is_odd = await EvenOddLoader().is_today_odd()
@@ -41,7 +41,7 @@ async def send_schedule_today(query: CallbackQuery, user: User, texts):
 
 
 async def send_schedule_tomorrow(query: CallbackQuery, user: User, texts):
-    schedule = query.bot['schedule_dbm'].get_schedule_by_group(user.group)
+    schedule = await NetworkScheduleLoader(user.group).load_schedule()
     weekday = (datetime.today().weekday() + 1) % 7
     today = datetime.today()
     tomorrow = datetime(today.year, today.month, today.day + 1)
@@ -71,7 +71,7 @@ async def open_weekday_menu(query: CallbackQuery, user: User, texts, state: FSMC
         wd = 4
     else:
         wd = 5
-    schedule = query.bot['schedule_dbm'].get_schedule_by_group(user.group)
+    schedule = await NetworkScheduleLoader(user.group).load_schedule_by_group(user.group)
     workday = schedule.get_schedule_at_day(wd)
     await query.message.answer(str(workday), reply_markup=get_to_menu_markup(texts))
     await state.finish()
