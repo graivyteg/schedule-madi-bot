@@ -12,12 +12,12 @@ class WorkDay:
     def __str__(self):
         if len(self.lessons) == 0:
             return '🍺 <b>Кажется, это выходной!</b>'
-        result = '📆 <b>УЧЕБНЫЙ ДЕНЬ:</b> \n'
+        result = '📆 <b>УЧЕБНЫЙ ДЕНЬ:</b> \n\n'
 
         for i in range(len(self.lessons)):
 
-            result += f'<b>Пара {i + 1}</b>\n'
-            result += str(self.lessons[i]) + '\n\n'
+            result += f'<b>📕 ПАРА {i + 1}</b>\n'
+            result += str(self.lessons[i]) + '\n'
         return result
 
     def str_even_odd(self, is_odd) -> str:

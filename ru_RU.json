@@ -20,10 +20,11 @@
   "profile_markup": {
     "today_schedule": "\uD83D\uDCD5 Расписание на сегодня",
     "tomorrow_schedule": "\uD83D\uDCD7 Расписание на завтра",
+    "week_schedule": "\uD83D\uDCD8 Расписание на неделю",
     "settings": "⚙️ Настройки"
   },
 
-  "settings_menu": "⚙️ ️<b>НАСТРОЙКИ</b>\n\n \uD83D\uDD3B Выбери действие:",
+  "settings_menu": "⚙️ <b>НАСТРОЙКИ</b>\n\n\uD83D\uDD3B Выбери действие:",
   "settings_markup": {
     "change_name": "\uD83D\uDE0E Изменить имя",
     "change_group": "\uD83D\uDC65 Изменить группу"
@@ -32,5 +33,22 @@
   "name_changed": "Имя успешно изменено! Теперь буду называть тебя {}!",
   "group_changed": "Группа успешно изменена на {}!",
 
-  "to_menu": "\uD83D\uDCCC Вернуться в меню"
+  "to_menu": "\uD83D\uDCCC Вернуться в меню",
+
+  "even_odd_markup": {
+    "odd": "Числитель",
+    "even": "Знаменатель",
+    "all": "Всё"
+  },
+
+  "choose_weekday": "\uD83D\uDCCC <b>ВЫБЕРИ ДЕНЬ НЕДЕЛИ: </b>\n",
+
+  "weekday_markup": {
+    "monday": "✏️ Понедельник",
+    "tuesday": "✏️ Вторник",
+    "wednesday": "✏️ Среда",
+    "thursday": "✏️ Четверг",
+    "friday": "✏️ Пятница",
+    "saturday": "✏️ Суббота"
+  }
 }
