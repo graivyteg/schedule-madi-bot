@@ -36,7 +36,7 @@ async def send_schedule_today(query: CallbackQuery, user: User, texts):
     workday = schedule.get_schedule_at_day(weekday)
     is_odd = await EvenOddLoader().is_today_odd()
 
-    await query.message.answer(schedule.get_schedule_at_day(weekday).str_even_odd(is_odd),
+    await query.message.answer(workday.str_even_odd(is_odd),
                                reply_markup=get_to_menu_markup(texts))
 
 
@@ -55,6 +55,7 @@ async def send_schedule_week(query: CallbackQuery, user: User, texts):
 
 async def open_weekday_menu(query: CallbackQuery, user: User, texts, state: FSMContext):
     print(query.data)
+    wd = -1
     if query.data == 'to_menu':
         await send_menu(query.bot, user)
         await state.finish()
@@ -69,7 +70,7 @@ async def open_weekday_menu(query: CallbackQuery, user: User, texts, state: FSMC
         wd = 3
     elif query.data == 'friday':
         wd = 4
-    else:
+    elif query.data == 'saturday':
         wd = 5
     schedule = await NetworkScheduleLoader(user.group).load_schedule_by_group(user.group)
     workday = schedule.get_schedule_at_day(wd)

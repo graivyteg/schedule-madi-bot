@@ -10,10 +10,10 @@ class WorkDay:
     lessons: List[Lesson]
 
     def __str__(self):
+        print([l.subject for l in self.lessons])
         if len(self.lessons) == 0:
             return '🍺 <b>Кажется, это выходной!</b>'
         result = '📆 <b>УЧЕБНЫЙ ДЕНЬ:</b> \n\n'
-
         for i in range(len(self.lessons)):
 
             result += f'<b>📕 ПАРА {i + 1}</b>\n'

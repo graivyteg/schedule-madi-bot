@@ -27,7 +27,7 @@ class GroupIdLoader:
     async def get_group_id(self) -> str:
         groups = await self.get_groups_html()
         for li in groups:
-            if li.text == self.group:
+            if li.text.lower().replace(' ', '') == self.group.lower().replace(' ', ''):
                 return li['value']
         return ''
 

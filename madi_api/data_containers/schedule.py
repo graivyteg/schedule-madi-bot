@@ -12,7 +12,7 @@ class Schedule:
         return 'РАСПИСАНИЕ:\n' + str(self.workdays)
 
     def get_schedule_at_day(self, day=0) -> WorkDay:
-        if day >= 6 or day not in self.workdays.keys():
+        if day >= 6 or (day not in self.workdays.keys()):
             return WorkDay([])
         return copy(self.workdays[day])
 

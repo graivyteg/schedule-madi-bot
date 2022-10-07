@@ -17,7 +17,8 @@ weekdays = {
     'Среда': 2,
     'Четверг': 3,
     'Пятница': 4,
-    'Суббота': 5
+    'Суббота': 5,
+    'Полнодневные занятия': 7
 }
 
 class NetworkScheduleLoader:
@@ -46,15 +47,23 @@ class NetworkScheduleLoader:
         started = False
         lessons = []
         workdays = {}
+        for wd in weekdays.keys():
+            workdays[weekdays[wd]] = WorkDay([])
 
         weekday = None
         for i in range(len(trs)):
             tds = [td.text for td in trs[i].find_all('td')]
-            if len(tds) < 6 and started:
+            print(len(tds))
+            th = trs[i].find('th')
+            if th is not None and th.text in weekdays.keys():
+                weekday = weekdays[th.text]
+                print(th.text)
+            '''if len(tds) < 6 and started:
+                print(lessons)
                 workday = WorkDay(copy(lessons))
-                workdays[weekday] = workday
-                lessons.clear()
-            elif len(tds) == 6 and not tds[0] == 'Время занятий':
+                workdays[weekday] = copy(workday)
+                lessons.clear()'''
+            if len(tds) == 6 and not tds[0] == 'Время занятий':
                 started = True
                 lesson = Lesson(
                     time=tds[0],
@@ -64,14 +73,11 @@ class NetworkScheduleLoader:
                     classroom=tds[4],
                     teacher=tds[5]
                 )
-                lessons.append(lesson)
-            th = trs[i].find('th')
-            if th is not None and th.text == 'Полнодневные занятия':
-                continue
-            if th is not None and th.text in weekdays.keys():
-                weekday = weekdays[th.text]
-        print(self.group, workdays.keys(), len(trs))
-        return Schedule(workdays)
+                workdays[weekday].lessons.append(lesson)
+                #lessons.append(lesson)
+            #if th is not None and th.text == 'Полнодневные занятия':
+            #    continue
+        return copy(Schedule(workdays))
 
     async def get_html(self) -> str:
         group_id = await GroupIdLoader(self.group).get_group_id()
