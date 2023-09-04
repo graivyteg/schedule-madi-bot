@@ -53,11 +53,9 @@ class NetworkScheduleLoader:
         weekday = None
         for i in range(len(trs)):
             tds = [td.text for td in trs[i].find_all('td')]
-            print(len(tds))
             th = trs[i].find('th')
             if th is not None and th.text in weekdays.keys():
                 weekday = weekdays[th.text]
-                print(th.text)
             '''if len(tds) < 6 and started:
                 print(lessons)
                 workday = WorkDay(copy(lessons))
@@ -85,7 +83,7 @@ class NetworkScheduleLoader:
         data['gp_name'] = self.group
         data['gp_id'] = group_id
         async with aiohttp.ClientSession() as session:
-            async with session.post('https://www.madi.ru/tplan/tasks/tableFiller.php',
+            async with session.post('https://raspisanie.madi.ru/tplan/tasks/tableFiller.php',
                                     data=data,
                                     cookies=cookies,
                                     headers=headers) as response:

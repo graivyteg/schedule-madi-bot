@@ -11,7 +11,7 @@ class GroupIdLoader:
     @classmethod
     async def get_html(cls) -> str:
         async with aiohttp.ClientSession() as session:
-            async with session.post('https://www.madi.ru/tplan/tasks/task3,7_fastview.php',
+            async with session.post('https://raspisanie.madi.ru/tplan/tasks/task3,7_fastview.php',
                                     data=data,
                                     cookies=cookies,
                                     headers=headers) as response:

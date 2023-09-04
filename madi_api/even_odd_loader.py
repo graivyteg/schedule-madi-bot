@@ -25,7 +25,7 @@ class EvenOddLoader:
         pass
 
     async def load_html(self):
-        url = 'https://www.madi.ru/tplan/tasks/print_calendar.php'
+        url = 'https://raspisanie.madi.ru/tplan/tasks/print_calendar.php'
         async with ClientSession() as session:
             async with session.post(url,
                                     data=data,

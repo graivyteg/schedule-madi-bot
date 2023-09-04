@@ -19,6 +19,7 @@ from bot.misc.users_dbm import UsersDBM
 
 logger = logging.getLogger(__name__)
 
+DEBUG_MODE = True
 
 def register_all_middlewares(dp: Dispatcher):
     dp.setup_middleware(UsersDatabaseMiddleware(UsersDBM('users')))
@@ -47,7 +48,10 @@ async def main():
     config = load_config('.env')
 
     loop = asyncio.get_event_loop()
-    bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
+    if DEBUG_MODE:
+        bot = Bot(token=config.tg_bot.debug_token, parse_mode='HTML')
+    else:
+        bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     storage = MemoryStorage()
     dp = Dispatcher(bot=bot, storage=storage, loop=loop)
     dp.bot['config'] = config
