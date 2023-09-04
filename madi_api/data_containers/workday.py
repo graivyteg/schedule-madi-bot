@@ -26,7 +26,6 @@ class WorkDay:
         temp_lessons = copy(self.lessons)
         result_lessons = []
         for lesson in temp_lessons:
-            print(lesson.week, is_odd)
             if (lesson.week == 'Числитель' and is_odd) or \
                     (lesson.week == 'Знаменатель' and not is_odd) or \
                     (lesson.week == 'Еженедельно'):

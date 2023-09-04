@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 from bot.filters.authorized import AuthorizedFilter
-from bot.handlers.profile import send_menu
+from bot.handlers.profile import send_menu, send_menu_message
 from bot.keyboards.inline.settings import get_settings_markup
 from bot.models.states.settings_states import SettingsStates
 from databases.models.user import User
@@ -12,9 +12,11 @@ from databases.models.user import User
 async def open_settings(message: Message, user: User, texts):
     await message.answer(texts['settings_menu'], reply_markup=get_settings_markup(texts))
 
+async def open_settings_edit(message: Message, user: User, texts):
+    await message.edit_text(texts['settings_menu'], reply_markup=get_settings_markup(texts))
 
 async def open_settings_query(query: CallbackQuery, user: User, texts):
-    await open_settings(query.message, user, texts)
+    await open_settings_edit(query.message, user, texts)
 
 
 async def change_name(query: CallbackQuery, user: User, texts):
@@ -41,7 +43,7 @@ async def group_changed(message: Message, user: User, texts, state: FSMContext):
 
 
 async def to_menu(query: CallbackQuery, user: User):
-    await send_menu(query.bot, user)
+    await send_menu_message(query.message, user)
 
 
 def register_settings(dp: Dispatcher):
