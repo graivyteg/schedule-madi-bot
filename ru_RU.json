@@ -27,7 +27,8 @@
   "settings_menu": "⚙️ <b>НАСТРОЙКИ</b>\n\n\uD83D\uDD3B Выбери действие:",
   "settings_markup": {
     "change_name": "\uD83D\uDE0E Изменить имя",
-    "change_group": "\uD83D\uDC65 Изменить группу"
+    "change_group": "\uD83D\uDC65 Изменить группу",
+    "help": "\uD83C\uDD98 Связаться с поддержкой"
   },
 
   "name_changed": "Имя успешно изменено! Теперь буду называть тебя {}!",
@@ -50,5 +51,7 @@
     "thursday": "✏️ Четверг",
     "friday": "✏️ Пятница",
     "saturday": "✏️ Суббота"
-  }
+  },
+
+  "help": "\uD83C\uDD98 <b>Контакты поддержки:</b> @rectenko"
 }

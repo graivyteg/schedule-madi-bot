@@ -5,6 +5,7 @@ from aiogram.types import Message, CallbackQuery
 from bot.filters.authorized import AuthorizedFilter
 from bot.handlers.profile import send_menu, send_menu_message
 from bot.keyboards.inline.settings import get_settings_markup
+from bot.keyboards.inline.to_menu import get_to_menu_markup
 from bot.models.states.settings_states import SettingsStates
 from databases.models.user import User
 
@@ -42,6 +43,10 @@ async def group_changed(message: Message, user: User, texts, state: FSMContext):
     await open_settings(message, user, texts)
 
 
+async def help(query: CallbackQuery, texts):
+    await query.message.edit_text(texts['help'], reply_markup=get_to_menu_markup(texts))
+
+
 async def to_menu(query: CallbackQuery, user: User):
     await send_menu_message(query.message, user)
 
@@ -50,6 +55,7 @@ def register_settings(dp: Dispatcher):
     dp.register_callback_query_handler(open_settings_query, AuthorizedFilter(), text=['open_settings'])
     dp.register_callback_query_handler(change_name, AuthorizedFilter(), text=['change_name'])
     dp.register_callback_query_handler(change_group, AuthorizedFilter(), text=['change_group'])
+    dp.register_callback_query_handler(help, AuthorizedFilter(), text=['help'])
     dp.register_callback_query_handler(to_menu, text=['to_menu'])
     dp.register_message_handler(name_changed, AuthorizedFilter(), state=SettingsStates.changing_name)
     dp.register_message_handler(group_changed, AuthorizedFilter(), state=SettingsStates.changing_group)

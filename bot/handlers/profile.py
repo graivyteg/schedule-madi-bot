@@ -98,6 +98,8 @@ async def open_weekday_menu(query: CallbackQuery, user: User, texts, state: FSMC
     await query.message.edit_text(str(workday), reply_markup=get_to_menu_markup(texts))
     await state.finish()
 
+async def help(message: Message, texts):
+    await message.answer(texts['help'])
 
 def register_profile(dp: Dispatcher):
     dp.register_callback_query_handler(send_schedule, AuthorizedFilter(), text=['get_schedule'])
@@ -108,4 +110,5 @@ def register_profile(dp: Dispatcher):
 
     dp.register_message_handler(send_schedule_today_command,  AuthorizedFilter(), commands=['today'])
     dp.register_message_handler(send_schedule_tomorrow_command, AuthorizedFilter(), commands=['tomorrow'])
+    dp.register_message_handler(help, commands=['help'])
 
