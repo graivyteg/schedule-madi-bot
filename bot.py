@@ -8,6 +8,8 @@ from bot.config import load_config
 from bot.filters.authorized import AuthorizedFilter
 from bot.filters.has_group import HasGroupFilter
 from bot.filters.has_name import HasNameFilter
+from bot.filters.is_admin import IsAdmin
+from bot.handlers.admin import register_admin
 from bot.handlers.hello import register_hello
 from bot.handlers.profile import register_profile
 from bot.handlers.settings import register_settings
@@ -16,6 +18,7 @@ from bot.handlers.to_menu import register_to_menu
 from bot.middlewares.texts import TextsMiddleware
 from bot.middlewares.users_database import UsersDatabaseMiddleware
 from bot.misc.users_dbm import UsersDBM
+from lexicon import lexicon
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +33,7 @@ def register_all_filters(dp: Dispatcher):
     dp.filters_factory.bind(AuthorizedFilter)
     dp.filters_factory.bind(HasNameFilter)
     dp.filters_factory.bind(HasGroupFilter)
+    dp.filters_factory.bind(IsAdmin)
 
 
 def register_all_handlers(dp: Dispatcher):
@@ -38,6 +42,7 @@ def register_all_handlers(dp: Dispatcher):
     register_profile(dp)
     register_settings(dp)
     register_to_menu(dp)
+    register_admin(dp)
 
 
 async def main():
@@ -59,6 +64,7 @@ async def main():
     users_dbm = UsersDBM('users')
 
     dp.bot['users_dbm'] = users_dbm
+    dp.bot['lexicon'] = lexicon
 
     with open('ru_RU.json', 'r') as f:
         json_texts = json.load(f)

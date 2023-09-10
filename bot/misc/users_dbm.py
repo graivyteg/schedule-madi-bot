@@ -47,3 +47,8 @@ class UsersDBM(DatabaseManager):
         sql = f'''UPDATE users SET name='{user.name}', study_group='{user.group}' WHERE id={user.id}'''
         self.cur.execute(sql)
         self.conn.commit()
+
+    def get_stats(self):
+        sql = f'SELECT COUNT(*) FROM users;'
+        self.cur.execute(sql)
+        return self.cur.fetchone()[0]
